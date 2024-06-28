@@ -1,0 +1,102 @@
+:root {
+  font-family: sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--background);
+  --text: rgba(255, 255, 255, 0.721);
+  --rem: 16px;
+  --background: #111010;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+  transition: all 0.25s;
+}
+a:hover {
+  filter: brightness(1.2);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#app {
+  width: 100%;
+}
+
+#router {
+  transition: opacity 300ms;
+
+  &.fade {
+    opacity: 0;
+  }
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+h1,
+p,
+span:not(.clean) {
+  background-color: var(--background);
+  display: inline;
+}
+
+#router > div:first-child {
+  display: flex;
+  flex-direction: column;
+  padding: 20vh 0 0 0;
+  align-items: center;
+  text-align: center;
+}
+
+.code,
+.mono {
+  font-family: monospace !important;
+}
+
+#router {
+  height: 100%;
+}
+
+.center-box {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+*[fade-in] {
+  transform: translateY(1em);
+  opacity: 0;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
+
+  &[fade-in="true"] {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

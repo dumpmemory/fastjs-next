@@ -1,8 +1,8 @@
-name: 'CI'
+name: "CI"
 on:
   push:
     branches:
-      - '**'
+      - "**"
   pull_request:
     branches:
       - main
@@ -10,44 +10,106 @@ on:
 
 jobs:
   build-test:
+    name: Build Packages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 20
+
+      - name: Setup pnpm
+        run: npm i -g pnpm
+
       - name: Install dependencies
-        run: npm i
-      - name: Rollup check
-        run: npm run build-test
+        run: pnpm i
+
+      - name: Build
+        run: pnpm run build
+
+  build-site:
+    name: Build Site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Build Site
+        run: pnpm run build:site
 
   type-check:
+    name: Type Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 20
+
+      - name: Setup pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Run type check
+        run: pnpm run type-check
+
+  format-check:
+    name: Code Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
       - name: Install dependencies
         run: npm i
-      - name: Install typescript
-        run: npm install --global typescript
-      - name: TypeScript check
-        run: tsc --noEmit
 
-#  unit-test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Use Node.js
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: 18
-#      - name: Install dependencies
-#        run: npm i
-#      - name: Build
-#        run: npm run build
-#      - name: Jest check
-#        run: npm run test
+      - name: Run prettier check
+        run: npm run format
+
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Run tests
+        run: npm run test

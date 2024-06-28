@@ -1,0 +1,41 @@
+{
+  "name": "create-fastjs",
+  "version": "1.0.0-beta.9",
+  "description": "Create a fastjs project quickly",
+  "main": "./cli.cjs",
+  "author": "xiaodong2008 <hi@xiaodong.moe>",
+  "bugs": "https://github.com/fastjs-team/core/issues",
+  "funding": "https://github.com/sponsors/xiaodong2008",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "esbuild index.ts --bundle --platform=node --outfile=cli.cjs --watch",
+    "prod": "node scripts/build.js",
+    "type-check": "tsc --noEmit",
+    "version": "npm version"
+  },
+  "files": [
+    "templates",
+    "cli.cjs",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ],
+  "bin": {
+    "create-fastjs": "./cli.cjs"
+  },
+  "keywords": [
+    "fastjs",
+    "jsfast"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "^5.0.2",
+    "commander": "^12.0.0",
+    "ora": "^8.0.1",
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.2"
+  }
+}

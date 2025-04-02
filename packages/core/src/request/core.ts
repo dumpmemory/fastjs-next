@@ -69,7 +69,7 @@ export function sendRequest(
     request.request = new Request(addQuery(url, data.query), {
       method,
       headers: request.config.headers,
-      body: data.body as BodyInit
+      body: data.body ? JSON.stringify(data.body) : undefined
     });
 
     if (!runHooks(hooks.init, [request]))
